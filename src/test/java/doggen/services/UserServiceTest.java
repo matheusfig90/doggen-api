@@ -9,8 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -24,7 +26,7 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
     @Test
-    public void createUser() {
+    public void shouldCreateUser() {
         String name = "Doggen User";
         String email = "user@doggen.com";
         String password = "123789";
@@ -35,7 +37,9 @@ public class UserServiceTest {
 
         User actualUser = userService.create(name, email, password);
 
-        assertThat(actualUser).isEqualTo(expectedUser);
+        assertThat(actualUser, equalTo(expectedUser));
+
+        verify(userRepository).save(expectedUser);
     }
 
 }

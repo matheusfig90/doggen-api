@@ -2,6 +2,8 @@ package doggen.models;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.Objects;
+
 /**
  * User model
  *
@@ -15,9 +17,6 @@ public class User {
     private String name;
     private String email;
     private String password;
-
-
-    public User() { }
 
     public User(String name, String email, String password) {
         this.setName(name);
@@ -51,5 +50,23 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        User user = (User) obj;
+
+        return Objects.equals(this.getId(), user.getId())
+                && Objects.equals(this.getName(), user.getName())
+                && Objects.equals(this.getEmail(), user.getEmail())
+                && Objects.equals(this.getPassword(), user.getPassword());
     }
 }

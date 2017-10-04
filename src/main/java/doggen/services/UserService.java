@@ -20,7 +20,7 @@ public class UserService {
      * @return User created
      */
     public User create(String name, String email, String password) {
-        User newUser = new User(email, name, password);
+        User newUser = new User(name, email, password);
 
         return userRepository.save(newUser);
     }
